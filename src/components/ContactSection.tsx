@@ -4,7 +4,12 @@ import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { AnimatedSection, FadeInWhenVisible } from "@/components/ui/animated-section";
+import {
+  AnimatedSection,
+  FadeInWhenVisible,
+} from "@/components/ui/animated-section";
+
+import GoogleMapSection from "@/components/GoogleMapSection";
 import { motion } from "framer-motion";
 
 // Loading spinner component
@@ -38,7 +43,9 @@ const ResendInstructions = () => {
   return (
     <motion.div className="mt-4 p-4 bg-blue-50 rounded-md border border-blue-200">
       <div className="flex justify-between items-center">
-        <p className="text-blue-700 font-epilogue font-medium">Resend Email Configuration Required</p>
+        <p className="text-blue-700 font-epilogue font-medium">
+          Resend Email Configuration Required
+        </p>
         <Button
           variant="ghost"
           className="text-blue-700 p-1 h-auto"
@@ -76,7 +83,9 @@ const ResendInstructions = () => {
             {`RESEND_API_KEY=your_resend_api_key
 NOTIFICATION_EMAIL=email_to_receive_notifications`}
           </pre>
-          <p className="mt-2">For security, always use environment variables for production.</p>
+          <p className="mt-2">
+            For security, always use environment variables for production.
+          </p>
         </motion.div>
       )}
     </motion.div>
@@ -84,7 +93,9 @@ NOTIFICATION_EMAIL=email_to_receive_notifications`}
 };
 
 export function ContactSection() {
-  const [formStatus, setFormStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [formStatus, setFormStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [errorMessage, setErrorMessage] = useState<string>("");
   const formRef = useRef<HTMLFormElement>(null);
@@ -134,10 +145,10 @@ export function ContactSection() {
       const formValues = Object.fromEntries(formData.entries());
 
       // Send data to our API endpoint
-      const response = await fetch('/api/send-email', {
-        method: 'POST',
+      const response = await fetch("/api/send-email", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formValues),
       });
@@ -145,7 +156,7 @@ export function ContactSection() {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to send message');
+        throw new Error(result.error || "Failed to send message");
       }
 
       // Success!
@@ -158,11 +169,14 @@ export function ContactSection() {
       setTimeout(() => {
         setFormStatus("idle");
       }, 3000);
-
     } catch (error) {
-      console.error('Error sending form:', error);
+      console.error("Error sending form:", error);
       setFormStatus("error");
-      setErrorMessage(error instanceof Error ? error.message : 'An error occurred. Please try again.');
+      setErrorMessage(
+        error instanceof Error
+          ? error.message
+          : "An error occurred. Please try again.",
+      );
 
       // Reset error status after 3 seconds
       setTimeout(() => {
@@ -205,9 +219,12 @@ export function ContactSection() {
       <div className="container">
         <AnimatedSection direction="up" type="spring" duration={0.8}>
           <div className="text-center mb-12">
-            <h2 className="font-agbalumo text-4xl text-dental-teal mb-4">Contact Us</h2>
+            <h2 className="font-agbalumo text-4xl text-dental-teal mb-4">
+              Contact Us
+            </h2>
             <p className="font-epilogue text-slate-600 max-w-2xl mx-auto">
-              We're here to answer your questions. Get in touch with us and we'll respond as soon as possible.
+              We're here to answer your questions. Get in touch with us and
+              we'll respond as soon as possible.
             </p>
           </div>
         </AnimatedSection>
@@ -223,7 +240,9 @@ export function ContactSection() {
               }}
               transition={{ duration: 0.3 }}
             >
-              <h3 className="font-agbalumo text-2xl text-dental-teal mb-6">Send us a message</h3>
+              <h3 className="font-agbalumo text-2xl text-dental-teal mb-6">
+                Send us a message
+              </h3>
 
               <motion.form
                 ref={formRef}
@@ -239,7 +258,10 @@ export function ContactSection() {
                   variants={containerVariants}
                 >
                   <motion.div className="space-y-2" variants={itemVariants}>
-                    <label htmlFor="name" className="font-epilogue text-slate-700 block">
+                    <label
+                      htmlFor="name"
+                      className="font-epilogue text-slate-700 block"
+                    >
                       Full Name *
                     </label>
                     <Input
@@ -252,12 +274,17 @@ export function ContactSection() {
                       required
                     />
                     {formErrors.name && (
-                      <p className="text-red-500 text-sm mt-1">{formErrors.name}</p>
+                      <p className="text-red-500 text-sm mt-1">
+                        {formErrors.name}
+                      </p>
                     )}
                   </motion.div>
 
                   <motion.div className="space-y-2" variants={itemVariants}>
-                    <label htmlFor="email" className="font-epilogue text-slate-700 block">
+                    <label
+                      htmlFor="email"
+                      className="font-epilogue text-slate-700 block"
+                    >
                       Email Address *
                     </label>
                     <Input
@@ -271,13 +298,18 @@ export function ContactSection() {
                       required
                     />
                     {formErrors.email && (
-                      <p className="text-red-500 text-sm mt-1">{formErrors.email}</p>
+                      <p className="text-red-500 text-sm mt-1">
+                        {formErrors.email}
+                      </p>
                     )}
                   </motion.div>
                 </motion.div>
 
                 <motion.div className="space-y-2" variants={itemVariants}>
-                  <label htmlFor="phone" className="font-epilogue text-slate-700 block">
+                  <label
+                    htmlFor="phone"
+                    className="font-epilogue text-slate-700 block"
+                  >
                     Phone Number
                   </label>
                   <Input
@@ -290,7 +322,10 @@ export function ContactSection() {
                 </motion.div>
 
                 <motion.div className="space-y-2" variants={itemVariants}>
-                  <label htmlFor="service" className="font-epilogue text-slate-700 block">
+                  <label
+                    htmlFor="service"
+                    className="font-epilogue text-slate-700 block"
+                  >
                     Service of Interest
                   </label>
                   <select
@@ -310,7 +345,10 @@ export function ContactSection() {
                 </motion.div>
 
                 <motion.div className="space-y-2" variants={itemVariants}>
-                  <label htmlFor="message" className="font-epilogue text-slate-700 block">
+                  <label
+                    htmlFor="message"
+                    className="font-epilogue text-slate-700 block"
+                  >
                     Message *
                   </label>
                   <Textarea
@@ -323,7 +361,9 @@ export function ContactSection() {
                     required
                   />
                   {formErrors.message && (
-                    <p className="text-red-500 text-sm mt-1">{formErrors.message}</p>
+                    <p className="text-red-500 text-sm mt-1">
+                      {formErrors.message}
+                    </p>
                   )}
                 </motion.div>
 
@@ -386,7 +426,8 @@ export function ContactSection() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4 }}
                   >
-                    {errorMessage || "There was an error sending your message. Please try again."}
+                    {errorMessage ||
+                      "There was an error sending your message. Please try again."}
                   </motion.p>
                 )}
               </motion.form>
@@ -431,9 +472,9 @@ export function ContactSection() {
                       title: "Address",
                       content: (
                         <>
-                          123 Main St, Dental City
+                          17280 SW 146th CT, Miami, FL, 33177
                           <br />
-                          Between Smile St & Health Ave
+                          Golden Smile Creation
                         </>
                       ),
                     },
@@ -457,9 +498,9 @@ export function ContactSection() {
                       title: "Phone",
                       content: (
                         <>
-                          +1 (555) 123-4567
+                          +1 (786) 316-1748
                           <br />
-                          +1 (555) 987-6543
+                          +1 (772) 249-9055
                         </>
                       ),
                     },
@@ -540,7 +581,9 @@ export function ContactSection() {
                         <h4 className="font-epilogue font-semibold text-lg text-dental-teal">
                           {item.title}
                         </h4>
-                        <p className="font-epilogue text-slate-600">{item.content}</p>
+                        <p className="font-epilogue text-slate-600">
+                          {item.content}
+                        </p>
                       </div>
                     </motion.div>
                   ))}
@@ -550,7 +593,7 @@ export function ContactSection() {
 
             {/* Map */}
             <FadeInWhenVisible delay={0.7} duration={0.8}>
-              <motion.div
+              {/*<motion.div
                 className="aspect-video bg-dental-teal/10 rounded-lg flex items-center justify-center"
                 whileHover={{
                   boxShadow:
@@ -593,6 +636,17 @@ export function ContactSection() {
                     Location map (an interactive map would be integrated here)
                   </motion.p>
                 </div>
+              </motion.div>*/}
+
+              <motion.div
+                className="aspect-video rounded-lg overflow-hidden"
+                whileHover={{
+                  boxShadow:
+                    "0 10px 25px -5px rgba(0, 73, 82, 0.1), 0 8px 10px -6px rgba(0, 73, 82, 0.1)",
+                }}
+                transition={{ duration: 0.3 }}
+              >
+                <GoogleMapSection />
               </motion.div>
             </FadeInWhenVisible>
           </div>
